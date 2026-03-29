@@ -1,4 +1,4 @@
-# 🤖 AutoDev Agent — Autonomous AI Coder for VS Code
+#  AutoDev Agent — Autonomous AI Coder for VS Code
 
 > **Intent → Plan → Execute → Done.** No manual coding for boilerplate, debugging, or scaffolding.
 
@@ -8,7 +8,7 @@
 
 ---
 
-## ✨ What It Does
+##  What It Does
 
 AutoDev Agent is a **multi-agent AI system** built inside VS Code. It replaces 2+ hours of developer work with a single command — no monthly subscription, no cloud lock-in, fully open source.
 
@@ -22,7 +22,7 @@ AutoDev Agent is a **multi-agent AI system** built inside VS Code. It replaces 2
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### 1. Install the extension
 
@@ -51,7 +51,7 @@ Pick one of three **free** options:
 
 ---
 
-## 🆓 Free LLM Options
+##  Free LLM Options
 
 ### Option A: Ollama (Recommended — 100% local, 100% free)
 
@@ -103,7 +103,7 @@ Then in VS Code settings set:
 
 ---
 
-## ⌨️ Keyboard Shortcuts
+##  Keyboard Shortcuts
 
 | Shortcut | Action |
 |---|---|
@@ -113,7 +113,7 @@ Then in VS Code settings set:
 
 ---
 
-## 🎮 Usage Examples
+##  Usage Examples
 
 ### Generate from Intent
 Open Command Palette → `AutoDev: Generate from Intent`
@@ -149,7 +149,7 @@ Ctrl+Shift+F  →  Confirm  →  Watch it scan every file  →  Review diff  →
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 User Input
@@ -164,16 +164,16 @@ User Input
 ┌─────────────────────────────────────────────────┐
 │  Multi-Agent System                             │
 │                                                 │
-│  🧠 Planner Agent                               │
+│   Planner Agent                               │
 │     Intent → Structured plan with steps        │
 │                                                 │
-│  ⚡ Executor Agent                              │
+│   Executor Agent                              │
 │     Creates files, runs commands, installs pkgs │
 │                                                 │
-│  🐛 Debugger Agent                              │
+│   Debugger Agent                              │
 │     Finds bugs, fixes code, writes tests        │
 │                                                 │
-│  ✅ Validator Agent                             │
+│   Validator Agent                             │
 │     Checks quality (0-100 score) before apply  │
 └─────────────────────────────────────────────────┘
     │
@@ -189,7 +189,7 @@ User Input
 
 ---
 
-## ⚙️ Full Configuration Reference
+##  Full Configuration Reference
 
 ```json
 {
@@ -221,7 +221,7 @@ User Input
 
 ---
 
-## 🛠️ Development
+##  Development
 
 ```bash
 # Clone
@@ -257,7 +257,7 @@ VS Code → Extensions → ⋯ → Install from VSIX
 
 ---
 
-## 📦 Recommended Ollama Models
+##  Recommended Ollama Models
 
 | Model | Size | Best for |
 |---|---|---|
@@ -270,7 +270,7 @@ VS Code → Extensions → ⋯ → Install from VSIX
 
 ---
 
-## 🔒 Privacy
+##  Privacy
 
 - **Ollama mode**: All code stays on your machine. Zero data leaves your system.
 - **Gemini mode**: Code is sent to Google's API. Review [Google's privacy policy](https://policies.google.com/privacy).
@@ -278,7 +278,7 @@ VS Code → Extensions → ⋯ → Install from VSIX
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 PRs welcome! Key areas to improve:
 
@@ -292,13 +292,13 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) to get started.
 
 ---
 
-## 📄 License
+##  License
 
 MIT — free to use, modify, distribute, and sell.
 
 ---
 
-## ⭐ Star History
+##  Star History
 
 If AutoDev saves you time, a GitHub star helps others find it!
 
