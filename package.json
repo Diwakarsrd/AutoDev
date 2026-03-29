@@ -1,0 +1,360 @@
+{
+  "name": "autonomous-dev-agent",
+  "displayName": "AutoDev Agent — Autonomous AI Coder",
+  "description": "Multi-agent AI system: intent → code → tests → deployment. Fix entire projects in one click.",
+  "version": "1.0.0",
+  "publisher": "autodev",
+  "icon": "media/icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "agent",
+    "autonomous",
+    "coding",
+    "ollama",
+    "gemini",
+    "copilot",
+    "autofix",
+    "refactor"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/autonomous-dev-agent"
+  },
+  "license": "MIT",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "autodev.fixProject",
+        "title": "AutoDev: Fix Entire Project",
+        "category": "AutoDev"
+      },
+      {
+        "command": "autodev.generateFromIntent",
+        "title": "AutoDev: Generate from Intent",
+        "category": "AutoDev"
+      },
+      {
+        "command": "autodev.fixSelection",
+        "title": "AutoDev: Fix and Explain Selection",
+        "category": "AutoDev"
+      },
+      {
+        "command": "autodev.refactorFile",
+        "title": "AutoDev: Refactor Current File",
+        "category": "AutoDev"
+      },
+      {
+        "command": "autodev.writTests",
+        "title": "AutoDev: Generate Tests",
+        "category": "AutoDev"
+      },
+      {
+        "command": "autodev.openPanel",
+        "title": "AutoDev: Open Agent Panel",
+        "category": "AutoDev"
+      },
+      {
+        "command": "autodev.configureProvider",
+        "title": "AutoDev: Configure LLM Provider",
+        "category": "AutoDev"
+      },
+      {
+        "command": "autodev.runAndHeal",
+        "title": "AutoDev: Run and Self-Heal",
+        "category": "AutoDev"
+      },
+      {
+        "command": "autodev.clearMemory",
+        "title": "AutoDev: Clear Conversation Memory",
+        "category": "AutoDev"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "autodev.fixSelection",
+          "when": "editorHasSelection",
+          "group": "autodev@1"
+        },
+        {
+          "command": "autodev.refactorFile",
+          "group": "autodev@2"
+        },
+        {
+          "command": "autodev.writTests",
+          "group": "autodev@3"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "autodev.fixProject",
+          "group": "autodev@1"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "autodev.fixProject",
+        "key": "ctrl+shift+f",
+        "mac": "cmd+shift+f",
+        "when": "editorFocus"
+      },
+      {
+        "command": "autodev.generateFromIntent",
+        "key": "ctrl+shift+g",
+        "mac": "cmd+shift+g",
+        "when": "editorFocus"
+      },
+      {
+        "command": "autodev.openPanel",
+        "key": "ctrl+shift+a",
+        "mac": "cmd+shift+a"
+      },
+      {
+        "command": "autodev.runAndHeal",
+        "key": "ctrl+shift+h",
+        "mac": "cmd+shift+h",
+        "when": "editorFocus"
+      }
+    ],
+    "configuration": {
+      "title": "AutoDev Agent",
+      "properties": {
+        "autodev.provider": {
+          "type": "string",
+          "default": "ollama",
+          "enum": [
+            "ollama",
+            "gemini",
+            "anthropic",
+            "groq",
+            "openai",
+            "openai-compatible"
+          ],
+          "enumDescriptions": [
+            "Ollama — run LLMs locally (free, private, no API key)",
+            "Google Gemini — free tier 1500 requests per day",
+            "Anthropic Claude — best code quality",
+            "Groq — free tier, fast inference",
+            "OpenAI GPT — paid, widely recognised",
+            "OpenAI-compatible — LM Studio, LocalAI, or any custom endpoint"
+          ],
+          "description": "LLM provider to use for all AI features"
+        },
+        "autodev.ollamaUrl": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama server URL"
+        },
+        "autodev.ollamaModel": {
+          "type": "string",
+          "default": "codellama:7b",
+          "description": "Ollama model to use (e.g. codellama:7b, deepseek-coder:6.7b, mistral:7b)"
+        },
+        "autodev.geminiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Google Gemini API key (get free at aistudio.google.com)"
+        },
+        "autodev.geminiModel": {
+          "type": "string",
+          "default": "gemini-1.5-flash",
+          "description": "Gemini model to use"
+        },
+        "autodev.openaiCompatibleUrl": {
+          "type": "string",
+          "default": "http://localhost:1234/v1",
+          "description": "OpenAI-compatible API base URL (e.g. LM Studio, LocalAI)"
+        },
+        "autodev.openaiCompatibleKey": {
+          "type": "string",
+          "default": "local",
+          "description": "API key for OpenAI-compatible endpoint"
+        },
+        "autodev.openaiCompatibleModel": {
+          "type": "string",
+          "default": "local-model",
+          "description": "Model name for OpenAI-compatible endpoint"
+        },
+        "autodev.maxFilesPerScan": {
+          "type": "number",
+          "default": 50,
+          "description": "Max files to scan during project fix"
+        },
+        "autodev.autoRunTests": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically run tests after generating them"
+        },
+        "autodev.showDiffBeforeApply": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show diff preview before applying AI changes"
+        },
+        "autodev.excludePatterns": {
+          "type": "array",
+          "default": [
+            "node_modules",
+            ".git",
+            "dist",
+            "build",
+            "out",
+            "venv",
+            ".venv",
+            "env",
+            "__pycache__",
+            "site-packages",
+            ".next",
+            "coverage",
+            "target",
+            ".cargo"
+          ],
+          "description": "File/folder patterns to exclude from project scans. venv and site-packages are always excluded regardless of this setting."
+        },
+        "autodev.anthropicApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Anthropic API key — get at console.anthropic.com (free credit on signup)"
+        },
+        "autodev.anthropicModel": {
+          "type": "string",
+          "default": "claude-3-5-haiku-20241022",
+          "enum": [
+            "claude-3-5-haiku-20241022",
+            "claude-3-5-sonnet-20241022",
+            "claude-opus-4-5"
+          ],
+          "enumDescriptions": [
+            "Haiku — fastest, cheapest",
+            "Sonnet — balanced quality/speed",
+            "Opus — best quality, higher cost"
+          ],
+          "description": "Anthropic Claude model to use"
+        },
+        "autodev.groqApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Groq API key — get free at console.groq.com"
+        },
+        "autodev.groqModel": {
+          "type": "string",
+          "default": "llama-3.3-70b-versatile",
+          "enum": [
+            "llama-3.3-70b-versatile",
+            "llama-3.1-8b-instant",
+            "mixtral-8x7b-32768",
+            "gemma2-9b-it"
+          ],
+          "enumDescriptions": [
+            "Llama 3.3 70B — best quality on Groq",
+            "Llama 3.1 8B — fastest",
+            "Mixtral 8x7B — good balance",
+            "Gemma 2 9B — lightweight"
+          ],
+          "description": "Groq model to use"
+        },
+        "autodev.openaiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI API key — get at platform.openai.com"
+        },
+        "autodev.openaiModel": {
+          "type": "string",
+          "default": "gpt-4o-mini",
+          "enum": [
+            "gpt-4o-mini",
+            "gpt-4o",
+            "gpt-4-turbo",
+            "gpt-3.5-turbo"
+          ],
+          "enumDescriptions": [
+            "GPT-4o Mini — fast and cheap",
+            "GPT-4o — best quality",
+            "GPT-4 Turbo — powerful",
+            "GPT-3.5 — cheapest"
+          ],
+          "description": "OpenAI model to use"
+        },
+        "autodev.selfHealingEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable self-healing loop — automatically fix errors when running generated code"
+        },
+        "autodev.selfHealingMaxRetries": {
+          "type": "number",
+          "default": 3,
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Maximum number of auto-fix attempts before giving up"
+        },
+        "autodev.conversationMemoryEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable conversation memory — agents remember previous turns and files modified"
+        },
+        "autodev.conversationMemoryMaxTurns": {
+          "type": "number",
+          "default": 10,
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Maximum number of conversation turns to keep in memory"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "autodev-sidebar",
+          "title": "AutoDev Agent",
+          "icon": "media/sidebar-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "autodev-sidebar": [
+        {
+          "type": "webview",
+          "id": "autodev.sidebarView",
+          "name": "AutoDev Agent"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package",
+    "deploy": "vsce publish"
+  },
+  "dependencies": {
+    "axios": "^1.6.5",
+    "diff": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/diff": "^5.0.9",
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vscode/test-electron": "^2.3.8",
+    "@vscode/vsce": "^2.22.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  }
+}
